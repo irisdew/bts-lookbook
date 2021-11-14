@@ -1,5 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+interface LookBookMainProps {
+  lookbookData: {
+    brand: string;
+    category: string;
+    colorchip: string;
+    features: string[];
+    price: string;
+    memberPhoto: ImageData;
+    memberCloth: ImageData;
+  };
+}
 
 interface IBar {
   top: string;
@@ -7,37 +19,59 @@ interface IBar {
 }
 
 const LookBookMain: React.FC = () => {
+  const [currentCardId, setCurrentCardId] = useState(1);
+
+  useEffect(() => {
+    console.log(currentCardId);
+  }, [currentCardId]);
+
+  const onClickLeftArrow = () => {
+    setCurrentCardId((prev) => (prev > 1 ? prev - 1 : prev - 1 + 8));
+  };
+
+  const onClickRightArrow = () => {
+    setCurrentCardId((prev) => (prev < 8 ? prev + 1 : prev + 1 - 8));
+  };
+
+  const onClickNavCard = (e: any) => {
+    setCurrentCardId(e.target.dataset.id);
+  };
+
   return (
     <>
-      <SwipeContainer>
-        <ContentTable>
-          <Label>BRAND</Label>
-          <Content>구찌</Content>
-          <Label>CATEGORY</Label>
-          <Content>상의</Content>
-          <Label>COLOR</Label>
-          <Content>
-            <ColorChip color="black" />
-          </Content>
-          <Label>FEATURES</Label>
-          <Content>반팔, 하프넥, 스트라이프 패턴</Content>
-          <Label>PRICE</Label>
-          <Content>KRW 3,000,000</Content>
-        </ContentTable>
-        <Bar top="600px" bottom="" />
-        <MemberPhoto alt="lookbook" src="/images/lookbook/v_01.png" />
-        <MemberCloth alt="lookbook" src="/images/lookbook/v_01_cloth.png" />
-        <Bar bottom="350px" top="" />
-      </SwipeContainer>
+      <Card>
+        <Arrow alt="left_arrow" src="/images/left_arrow.png" onClick={onClickLeftArrow} />
+        <SwipeContainer>
+          <ContentTable>
+            <Label>BRAND</Label>
+            <Content>구찌</Content>
+            <Label>CATEGORY</Label>
+            <Content>상의</Content>
+            <Label>COLOR</Label>
+            <Content>
+              <ColorChip color="black" />
+            </Content>
+            <Label>FEATURES</Label>
+            <Content>반팔, 하프넥, 스트라이프 패턴</Content>
+            <Label>PRICE</Label>
+            <Content>KRW 3,000,000</Content>
+          </ContentTable>
+          <Bar top="600px" bottom="" />
+          <MemberPhoto alt="lookbook" src="/images/lookbook/v_01.png" />
+          <MemberCloth alt="lookbook" src="/images/lookbook/v_01_cloth.png" />
+          <Bar bottom="350px" top="" />
+        </SwipeContainer>
+        <Arrow alt="right_arrow" src="/images/right_arrow.png" onClick={onClickRightArrow} />
+      </Card>
       <SwiperNav>
-        <NavCard />
-        <NavCard />
-        <NavCard />
-        <NavCard />
-        <NavCard />
-        <NavCard />
-        <NavCard />
-        <NavCard />
+        <NavCard data-id={1} onClick={onClickNavCard} />
+        <NavCard data-id={2} onClick={onClickNavCard} />
+        <NavCard data-id={3} onClick={onClickNavCard} />
+        <NavCard data-id={4} onClick={onClickNavCard} />
+        <NavCard data-id={5} onClick={onClickNavCard} />
+        <NavCard data-id={6} onClick={onClickNavCard} />
+        <NavCard data-id={7} onClick={onClickNavCard} />
+        <NavCard data-id={8} onClick={onClickNavCard} />
       </SwiperNav>
     </>
   );
@@ -45,11 +79,23 @@ const LookBookMain: React.FC = () => {
 
 export default LookBookMain;
 
+const Card = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 100px auto 30px;
+`;
+
+const Arrow = styled.img`
+  cursor: pointer;
+  margin: 0 50px;
+`;
+
 const SwipeContainer = styled.div`
   position: relative;
   max-width: 1200px;
+  width: 1100px;
   min-height: 850px;
-  margin: 100px auto 30px;
 `;
 
 const MemberPhoto = styled.img`
