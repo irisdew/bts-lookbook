@@ -5,10 +5,6 @@ interface LookBookHeaderProps {
   memberName: string;
 }
 
-interface IMemberName {
-  len: number;
-}
-
 const LookBookHeader: React.FC<LookBookHeaderProps> = ({ memberName }) => {
   return (
     <HeaderContainer>
