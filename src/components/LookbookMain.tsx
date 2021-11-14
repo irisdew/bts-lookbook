@@ -10,7 +10,7 @@ interface LookBookMainProps {
     price: string;
     memberPhoto: ImageData;
     memberCloth: ImageData;
-  };
+  }[];
 }
 
 interface IBar {
@@ -34,14 +34,14 @@ const LookBookMain: React.FC = () => {
   };
 
   const onClickNavCard = (e: any) => {
-    setCurrentCardId(e.target.dataset.id);
+    setCurrentCardId(parseInt(e.target.dataset.id));
   };
 
   return (
     <>
-      <Card>
+      <SwiperCard>
         <Arrow alt="left_arrow" src="/images/left_arrow.png" onClick={onClickLeftArrow} />
-        <SwipeContainer>
+        <LookBookContent>
           <ContentTable>
             <Label>BRAND</Label>
             <Content>구찌</Content>
@@ -60,18 +60,18 @@ const LookBookMain: React.FC = () => {
           <MemberPhoto alt="lookbook" src="/images/lookbook/v_01.png" />
           <MemberCloth alt="lookbook" src="/images/lookbook/v_01_cloth.png" />
           <Bar bottom="350px" top="" />
-        </SwipeContainer>
+        </LookBookContent>
         <Arrow alt="right_arrow" src="/images/right_arrow.png" onClick={onClickRightArrow} />
-      </Card>
+      </SwiperCard>
       <SwiperNav>
-        <NavCard data-id={1} onClick={onClickNavCard} />
-        <NavCard data-id={2} onClick={onClickNavCard} />
-        <NavCard data-id={3} onClick={onClickNavCard} />
-        <NavCard data-id={4} onClick={onClickNavCard} />
-        <NavCard data-id={5} onClick={onClickNavCard} />
-        <NavCard data-id={6} onClick={onClickNavCard} />
-        <NavCard data-id={7} onClick={onClickNavCard} />
-        <NavCard data-id={8} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 1 ? "" : "active"} data-id={1} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 2 ? "" : "active"} data-id={2} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 3 ? "" : "active"} data-id={3} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 4 ? "" : "active"} data-id={4} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 5 ? "" : "active"} data-id={5} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 6 ? "" : "active"} data-id={6} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 7 ? "" : "active"} data-id={7} onClick={onClickNavCard} />
+        <NavCard className={currentCardId - 8 ? "" : "active"} data-id={8} onClick={onClickNavCard} />
       </SwiperNav>
     </>
   );
@@ -79,7 +79,7 @@ const LookBookMain: React.FC = () => {
 
 export default LookBookMain;
 
-const Card = styled.div`
+const SwiperCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +91,7 @@ const Arrow = styled.img`
   margin: 0 50px;
 `;
 
-const SwipeContainer = styled.div`
+const LookBookContent = styled.div`
   position: relative;
   max-width: 1200px;
   width: 1100px;
@@ -161,6 +161,10 @@ const SwiperNav = styled.div`
   justify-content: center;
   max-width: 1440px;
   margin: 30px auto 100px;
+
+  .active {
+    filter: grayscale(50%);
+  }
 `;
 
 const NavCard = styled.div`
