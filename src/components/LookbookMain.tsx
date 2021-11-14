@@ -170,4 +170,8 @@ const NavCard = styled.div`
   background-image: url("/images/lookbook/v_01.png");
   background-size: cover;
   margin: 0 6px;
+  cursor: pointer;
+  :hover {
+    filter: grayscale(50%);
+  }
 `;
